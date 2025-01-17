@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: ${profile}
+    group:
+      local: "local"
+      dev: "dev, datasource"
+    include:
+        - security
+
+  mvc:
+    ignore-default-favicon: true
+
+cors-allowed-origins:
+  http://localhost:8080,
+  http://localhost:3000
