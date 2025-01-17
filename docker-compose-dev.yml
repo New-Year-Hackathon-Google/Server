@@ -26,5 +26,5 @@ services:
       - backya
 
 networks:
-  kkini:
+  backya:
     driver: bridge
