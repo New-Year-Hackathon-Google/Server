@@ -1,6 +1,7 @@
 package com.server.backyaserver.global.security.oauth2;
 
 import com.server.backyaserver.dto.CustomOAuth2User;
+import com.server.backyaserver.global.security.AuthConstants;
 import com.server.backyaserver.global.security.jwt.JWTUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -38,11 +39,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         GrantedAuthority auth = iterator.next();
         String role = auth.getAuthority();
 
-        String token = jwtUtil.createJwt(username, role, 60*60*60L);
+        String accessToken = jwtUtil.createJwt(username, role, 60*60*60L);
 
-        response.addCookie(createCookie("Authorization", token));
-        //redirection url 재설정 필요
-        response.sendRedirect("http://localhost:3000/");
+        response.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.TOKEN_TYPE + " " + accessToken);
+//        response.addHeader(AuthConstants.REFRESH_TOKEN_HEADER, AuthConstants.TOKEN_TYPE + " " + refreshToken);
     }
 
     private Cookie createCookie(String key, String value) {

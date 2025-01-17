@@ -8,9 +8,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Optional;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -20,45 +22,29 @@ public class JWTFilter extends OncePerRequestFilter {
     private final JWTUtil jwtUtil;
 
     public JWTFilter(JWTUtil jwtUtil) {
-
         this.jwtUtil = jwtUtil;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        //cookie들을 불러온 뒤 Authorization Key에 담긴 쿠키를 찾음
-        String authorization = null;
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-
-            System.out.println(cookie.getName());
-            if (cookie.getName().equals("Authorization")) {
-
-                authorization = cookie.getValue();
-            }
-        }
+        String accessToken = extractAccessTokenFromHeader(request);
 
         //Authorization 헤더 검증
-        if (authorization == null) {
-
+        if (accessToken == null) {
             System.out.println("token null");
             filterChain.doFilter(request, response);
-
-            //조건이 해당되면 메소드 종료 (필수)
             return;
         }
 
         //토큰
-        String token = authorization;
+        String token = accessToken;
 
         //토큰 소멸 시간 검증
         if (jwtUtil.isExpired(token)) {
 
             System.out.println("token expired");
             filterChain.doFilter(request, response);
-
-            //조건이 해당되면 메소드 종료 (필수)
             return;
         }
 
@@ -80,5 +66,12 @@ public class JWTFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
         filterChain.doFilter(request, response);
+    }
+
+    private String extractAccessTokenFromHeader(HttpServletRequest request) {
+        return Optional.ofNullable(request.getHeader("Authorization"))
+                .filter(header -> header.startsWith(AuthConstants.TOKEN_TYPE))
+                .map(header -> header.replace(AuthConstants.TOKEN_TYPE, ""))
+                .orElse(null);
     }
 }
