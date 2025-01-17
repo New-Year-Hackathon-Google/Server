@@ -31,7 +31,6 @@ public class CustomOAuth2User implements OAuth2User {
 
             @Override
             public String getAuthority() {
-
                 return memberDto.getRole();
             }
         });
@@ -41,17 +40,14 @@ public class CustomOAuth2User implements OAuth2User {
 
     @Override
     public String getName() {
-
         return memberDto.getName();
     }
 
     public String getUsername() {
-
         return memberDto.getUsername();
     }
 
     public String getEmail() {
-
         return memberDto.getEmail();
     }
 }
