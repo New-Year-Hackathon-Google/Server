@@ -4,3 +4,18 @@ jwt:
   access-token-expiration-time: ${JWT_ACCESS_TOKEN_EXPIRATION_TIME:36000} #10시간
   refresh-token-expiration-time: ${JWT_REFRESH_TOKEN_EXPIRATION_TIME:604800} #7일
   issuer: ${JWT_ISSUER:}
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-name: google
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            redirect-uri: http://${IP}:8080/login/oauth2/code/google
+            authorization-grant-type: authorization_code
+            scope:
+              - profile
+              - email
