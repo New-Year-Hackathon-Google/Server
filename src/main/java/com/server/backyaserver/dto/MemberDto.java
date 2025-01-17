@@ -10,4 +10,5 @@ public class MemberDto {
     private String role;
     private String name;
     private String username;
+    private String email;
 }

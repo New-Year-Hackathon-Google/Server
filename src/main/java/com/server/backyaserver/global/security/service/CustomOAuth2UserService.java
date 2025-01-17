@@ -1,12 +1,14 @@
 package com.server.backyaserver.global.security.service;
 
+import com.server.backyaserver.domain.member.entity.MemberRole;
+import com.server.backyaserver.domain.member.repository.MemberRepository;
 import com.server.backyaserver.dto.CustomOAuth2User;
 import com.server.backyaserver.dto.GoogleResponse;
 import com.server.backyaserver.dto.OAuth2Response;
 
 import com.server.backyaserver.dto.MemberDto;
 import com.server.backyaserver.domain.member.entity.Member;
-import com.server.backyaserver.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -14,14 +16,10 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    private final UserRepository userRepository;
-
-    public CustomOAuth2UserService(UserRepository userRepository) {
-
-        this.userRepository = userRepository;
-    }
+    private final MemberRepository memberRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -41,20 +39,17 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             return null;
         }
         String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
-        Member existData = userRepository.findByUsername(username);
+        Member existData = memberRepository.findByUsername(username);
 
         if (existData == null) {
 
-            Member member = new Member();
-            member.setUsername(username);
-            member.setEmail(oAuth2Response.getEmail());
-            member.setName(oAuth2Response.getName());
-            member.setRole("ROLE_USER");
+            Member member = Member.createDefaultMember(oAuth2Response.getName(), MemberRole.USER,
+                    oAuth2Response.getEmail(), username);
 
-            userRepository.save(member);
+            memberRepository.save(member);
 
             MemberDto memberDto = new MemberDto();
-            memberDto.setUsername(username);
+            memberDto.setUsername(member.getId().toString());
             memberDto.setName(oAuth2Response.getName());
             memberDto.setRole("ROLE_USER");
 
@@ -65,12 +60,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             existData.setEmail(oAuth2Response.getEmail());
             existData.setName(oAuth2Response.getName());
 
-            userRepository.save(existData);
+            memberRepository.save(existData);
 
             MemberDto memberDto = new MemberDto();
-            memberDto.setUsername(existData.getUsername());
             memberDto.setName(oAuth2Response.getName());
-            memberDto.setRole(existData.getRole());
+            memberDto.setUsername(existData.getId().toString());
+
+            memberDto.setRole(existData.getRole().getValue());
 
             return new CustomOAuth2User(memberDto);
         }

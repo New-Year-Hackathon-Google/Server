@@ -3,10 +3,13 @@ spring:
     active: ${profile}
     group:
       local: "local"
-      dev: "dev"
-      prod: "prod"
+      dev: "dev, datasource"
     include:
-      - aws
-      - security
+        - security
+
   mvc:
     ignore-default-favicon: true
+
+cors-allowed-origins:
+  http://localhost:8080,
+  http://localhost:3000
