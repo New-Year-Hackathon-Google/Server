@@ -1,11 +1,11 @@
-package com.server.backyaserver.service;
+package com.server.backyaserver.global.security.service;
 
 import com.server.backyaserver.dto.CustomOAuth2User;
 import com.server.backyaserver.dto.GoogleResponse;
 import com.server.backyaserver.dto.OAuth2Response;
 
-import com.server.backyaserver.dto.UserDTO;
-import com.server.backyaserver.entity.UserEntity;
+import com.server.backyaserver.dto.MemberDto;
+import com.server.backyaserver.domain.member.entity.Member;
 import com.server.backyaserver.repository.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -41,24 +41,24 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             return null;
         }
         String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
-        UserEntity existData = userRepository.findByUsername(username);
+        Member existData = userRepository.findByUsername(username);
 
         if (existData == null) {
 
-            UserEntity userEntity = new UserEntity();
-            userEntity.setUsername(username);
-            userEntity.setEmail(oAuth2Response.getEmail());
-            userEntity.setName(oAuth2Response.getName());
-            userEntity.setRole("ROLE_USER");
+            Member member = new Member();
+            member.setUsername(username);
+            member.setEmail(oAuth2Response.getEmail());
+            member.setName(oAuth2Response.getName());
+            member.setRole("ROLE_USER");
 
-            userRepository.save(userEntity);
+            userRepository.save(member);
 
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(username);
-            userDTO.setName(oAuth2Response.getName());
-            userDTO.setRole("ROLE_USER");
+            MemberDto memberDto = new MemberDto();
+            memberDto.setUsername(username);
+            memberDto.setName(oAuth2Response.getName());
+            memberDto.setRole("ROLE_USER");
 
-            return new CustomOAuth2User(userDTO);
+            return new CustomOAuth2User(memberDto);
         }
         else {
 
@@ -67,12 +67,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             userRepository.save(existData);
 
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(existData.getUsername());
-            userDTO.setName(oAuth2Response.getName());
-            userDTO.setRole(existData.getRole());
+            MemberDto memberDto = new MemberDto();
+            memberDto.setUsername(existData.getUsername());
+            memberDto.setName(oAuth2Response.getName());
+            memberDto.setRole(existData.getRole());
 
-            return new CustomOAuth2User(userDTO);
+            return new CustomOAuth2User(memberDto);
         }
     }
 }

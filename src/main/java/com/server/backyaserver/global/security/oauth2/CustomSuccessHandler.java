@@ -1,7 +1,7 @@
-package com.server.backyaserver.oauth2;
+package com.server.backyaserver.global.security.oauth2;
 
 import com.server.backyaserver.dto.CustomOAuth2User;
-import com.server.backyaserver.jwt.JWTUtil;
+import com.server.backyaserver.global.security.jwt.JWTUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

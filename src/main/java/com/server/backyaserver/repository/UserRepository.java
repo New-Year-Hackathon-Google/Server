@@ -1,9 +1,9 @@
 package com.server.backyaserver.repository;
 
-import com.server.backyaserver.entity.UserEntity;
+import com.server.backyaserver.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<Member, Long> {
 
-    UserEntity findByUsername(String username);
+    Member findByUsername(String username);
 }

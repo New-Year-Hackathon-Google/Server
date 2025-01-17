@@ -1,4 +1,4 @@
-package com.server.backyaserver.jwt;
+package com.server.backyaserver.global.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,9 +1,9 @@
-package com.server.backyaserver.config;
+package com.server.backyaserver.global.config;
 
-import com.server.backyaserver.jwt.JWTFilter;
-import com.server.backyaserver.jwt.JWTUtil;
-import com.server.backyaserver.oauth2.CustomSuccessHandler;
-import com.server.backyaserver.service.CustomOAuth2UserService;
+import com.server.backyaserver.global.security.JWTFilter;
+import com.server.backyaserver.global.security.jwt.JWTUtil;
+import com.server.backyaserver.global.security.oauth2.CustomSuccessHandler;
+import com.server.backyaserver.global.security.service.CustomOAuth2UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +25,8 @@ public class SecurityConfig {
     private final CustomSuccessHandler customSuccessHandler;
     private final JWTUtil jwtUtil;
 
+    private String[] allowUrls = {"/", "/favicon.ico", "/swagger-ui/**", "/v3/**", "/auth/**", "/oauth2/**"};
+
     public SecurityConfig(CustomOAuth2UserService customOAuth2UserService, CustomSuccessHandler customSuccessHandler, JWTUtil jwtUtil) {
 
         this.customOAuth2UserService = customOAuth2UserService;
@@ -43,26 +45,10 @@ public class SecurityConfig {
         http
                 .formLogin((auth) -> auth.disable());
 
-        //HTTP Basic 인증 방식 disable
+        //filter 안타는 url
         http
-                .httpBasic((auth) -> auth.disable());
-
-        //JWTFilter 추가
-        http
-                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
-
-        //oauth2
-        http
-                .oauth2Login((oauth2) -> oauth2
-                        .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
-                                .userService(customOAuth2UserService))
-                        .successHandler(customSuccessHandler)
-                );
-
-        //경로별 인가 작업
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/").permitAll()
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(allowUrls).permitAll()
                         .anyRequest().authenticated());
 
         //세션 설정 : STATELESS
@@ -90,6 +76,18 @@ public class SecurityConfig {
                         return configuration;
                     }
                 }));
+
+        //JWTFilter 추가
+        http
+                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+
+        //oauth2
+        http
+                .oauth2Login((oauth2) -> oauth2
+                        .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
+                                .userService(customOAuth2UserService))
+                        .successHandler(customSuccessHandler)
+                );
 
         return http.build();
     }
