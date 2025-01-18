@@ -46,6 +46,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         // Redirect to the constructed URL
         response.sendRedirect(redirectUrl);
+        System.out.println("redirectUrl: " + redirectUrl);
         System.out.println("accessToken: " + accessToken);
     }
 

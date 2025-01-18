@@ -3,6 +3,8 @@ package com.server.backyaserver.domain.member.service;
 import com.server.backyaserver.domain.member.domain.Member;
 import com.server.backyaserver.domain.member.domain.MemberRole;
 import com.server.backyaserver.domain.member.repository.MemberRepository;
+import com.server.backyaserver.global.error.exception.ErrorCode;
+import com.server.backyaserver.global.error.exception.NotFoundException;
 import com.server.backyaserver.global.security.dto.OAuth2Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,9 @@ public class MemberService {
         return memberRepository.findById(id).orElseThrow();
     }
 
-    @Transactional(readOnly = true)
-    public Member getMemberByEmail(String email) {
-        return memberRepository.findByEmailOrThrow(email);
+    private Member getMemberByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.MEMBER_NOT_FOUND));
     }
 
     @Transactional
