@@ -4,6 +4,7 @@ import com.server.backyaserver.domain.patient.domain.Patient;
 import com.server.backyaserver.global.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class HealthStatus extends BaseEntity {
     private Double bloodOxygen;
     private String drugHistory;
     private String notes;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
