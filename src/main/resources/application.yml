@@ -11,6 +11,6 @@ spring:
     ignore-default-favicon: true
 
 cors-allowed-origins:
-  http://backya.duckdns.org:8080
+  http://backya.duckdns.org:8080,
   http://localhost:8080,
   http://localhost:3000
