@@ -1,6 +1,6 @@
 package com.server.backyaserver.global.security.jwt;
 
-import com.server.backyaserver.domain.member.entity.Member;
+import com.server.backyaserver.domain.member.domain.Member;
 import com.server.backyaserver.global.properties.jwt.JwtProperties;
 import com.server.backyaserver.global.security.token.JwtAuthenticationToken;
 import io.jsonwebtoken.Claims;

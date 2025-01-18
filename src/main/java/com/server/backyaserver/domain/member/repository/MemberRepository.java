@@ -1,6 +1,6 @@
 package com.server.backyaserver.domain.member.repository;
 
-import com.server.backyaserver.domain.member.entity.Member;
+import com.server.backyaserver.domain.member.domain.Member;
 import com.server.backyaserver.global.error.exception.ErrorCode;
 import com.server.backyaserver.global.error.exception.NotFoundException;
 import java.util.Optional;

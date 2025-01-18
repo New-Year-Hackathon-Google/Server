@@ -1,9 +1,9 @@
 package com.server.backyaserver.domain.member.service;
 
-import com.server.backyaserver.domain.member.entity.Member;
-import com.server.backyaserver.domain.member.entity.MemberRole;
+import com.server.backyaserver.domain.member.domain.Member;
+import com.server.backyaserver.domain.member.domain.MemberRole;
 import com.server.backyaserver.domain.member.repository.MemberRepository;
-import com.server.backyaserver.dto.OAuth2Response;
+import com.server.backyaserver.global.security.dto.OAuth2Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

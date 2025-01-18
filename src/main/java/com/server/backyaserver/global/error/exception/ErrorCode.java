@@ -22,25 +22,12 @@ public enum ErrorCode {
     AT_EXPIRED_AND_RT_NOT_FOUND(HttpStatus.UNAUTHORIZED, "AT는 만료되었고 RT는 비어있습니다."),
     RT_NOT_FOUND(HttpStatus.UNAUTHORIZED, "RT가 비어있습니다"),
 
-    //모의고사
-    PRACTICE_TEST_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 모의고사를 찾을 수 없습니다"),
-
-    //문제
-    PROBLEM_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 문제를 찾을 수 없습니다"),
-
-    //시험결과
-    TEST_RESULT_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 시험 결과지를 찾을 수 없습니다"),
-    INVALID_SCORE(HttpStatus.CONFLICT, "점수 결과는 0점이하로 내려갈 수 없습니다"),
-
-    //등급 테이블
-    RATING_TABLE_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 등급 테이블을 찾을 수 없습니다"),
-
-    //이미지
-    IMAGE_FILE_EXTENSION_NOT_FOUND(HttpStatus.NOT_FOUND, "지원하지 않는 이미지 확장자입니다"),
-    IMAGE_FILE_NOT_FOUND_IN_S3(HttpStatus.NOT_FOUND, "S3에 해당 이미지 파일을 찾을 수 없습니다"),
 
     //회원
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 회원을 찾을 수 없습니다"),
+
+    //환자
+    BLOOD_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 혈액형을 찾을 수 없습니다"),
     ;
 
 

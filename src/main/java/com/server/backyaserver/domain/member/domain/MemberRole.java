@@ -1,4 +1,4 @@
-package com.server.backyaserver.domain.member.entity;
+package com.server.backyaserver.domain.member.domain;
 
 import java.util.Arrays;
 import lombok.AllArgsConstructor;

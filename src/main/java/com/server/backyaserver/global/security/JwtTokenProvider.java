@@ -1,6 +1,6 @@
 package com.server.backyaserver.global.security;
 
-import com.server.backyaserver.domain.member.entity.Member;
+import com.server.backyaserver.domain.member.domain.Member;
 import com.server.backyaserver.domain.member.service.MemberService;
 import com.server.backyaserver.global.error.exception.ErrorCode;
 import com.server.backyaserver.global.security.exception.JwtInvalidException;

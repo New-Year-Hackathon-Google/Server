@@ -1,6 +1,6 @@
 package com.server.backyaserver.domain.member.dto.response;
 
-import com.server.backyaserver.domain.member.entity.Member;
+import com.server.backyaserver.domain.member.domain.Member;
 
 public record MemberGetResponse(
     Long id,
