@@ -1,6 +1,7 @@
 package com.server.backyaserver.domain.healthStatus.controller;
 
 
+import com.server.backyaserver.domain.healthStatus.dto.request.PatientIdRequest;
 import com.server.backyaserver.domain.healthStatus.dto.response.HealthStatusGetResponse;
 import com.server.backyaserver.domain.healthStatus.service.HealthStatusService;
 import com.server.backyaserver.domain.member.domain.Member;
@@ -25,12 +26,13 @@ public class HealthStatusGetController {
 
     private final HealthStatusService healthStatusService;
 
-    @GetMapping("/{patientId}")
+    @PostMapping("")
     @Operation(summary = "최근 건강상태 조회", description = "보호자의 환자 최근 건강상태를 조회합니다.")
     public ResponseEntity<HealthStatusGetResponse> getRecentHealthStatusByPatientId(
-            @PathVariable("patientId") Long patientId
+            @RequestBody PatientIdRequest request
     ) {
-        return ResponseEntity.ok().body(healthStatusService.getRecentHealthStatusByPatientId(patientId));
+
+        return ResponseEntity.ok().body(healthStatusService.getRecentHealthStatusByPatientId(request.patientId()));
     }
 
 
