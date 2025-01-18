@@ -27,7 +27,7 @@ public class PatientController {
     private final PatientService patientService;
     private final PatientHealthStatusService patientHealthStatusService;
 
-    @GetMapping("/{memberId}")
+    @PostMapping("/{memberId}")
     @Operation(summary = "보호자의 환자 정보 조회")
     public ResponseEntity<PatientGetResponse> getPatientsByMemberId(
             @PathVariable("memberId") Long id
@@ -35,14 +35,14 @@ public class PatientController {
         return ResponseEntity.ok().body(patientService.getPatientByMemberId(id));
     }
 
-    @GetMapping("")
+    @PostMapping("")
     @Operation(summary = "(어드민용) 모든 환자 정보 조회")
     public ResponseEntity<List<PatientGetResponse>> getAllPatients(
     ) {
         return ResponseEntity.ok().body(patientService.getAllPatients());
     }
 
-    @PostMapping("")
+    @PostMapping("/create")
     @Operation(summary = "(어드민용) 환자 정보 생성")
     public ResponseEntity<Long> createPatient(
             @RequestBody PatientPostResponse request

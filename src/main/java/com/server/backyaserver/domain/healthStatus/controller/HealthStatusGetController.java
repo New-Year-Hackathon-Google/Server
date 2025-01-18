@@ -25,7 +25,7 @@ public class HealthStatusGetController {
 
     private final HealthStatusService healthStatusService;
 
-    @GetMapping("/{patientId}")
+    @PostMapping("/{patientId}")
     @Operation(summary = "최근 건강상태 조회", description = "보호자의 환자 최근 건강상태를 조회합니다.")
     public ResponseEntity<HealthStatusGetResponse> getRecentHealthStatusByPatientId(
             @PathVariable("patientId") Long patientId
