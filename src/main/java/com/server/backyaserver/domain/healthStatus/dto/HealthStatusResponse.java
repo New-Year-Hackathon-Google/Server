@@ -3,11 +3,12 @@ package com.server.backyaserver.domain.healthStatus.dto;
 import com.server.backyaserver.domain.healthStatus.domain.HealthStatus;
 import com.server.backyaserver.domain.healthStatus.domain.Status;
 import jakarta.persistence.Enumerated;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Builder
+@AllArgsConstructor
 @Getter
 public class HealthStatusResponse {
 
@@ -24,18 +25,18 @@ public class HealthStatusResponse {
     @Enumerated
     private Status status;
 
-    public static HealthStatusResponse from(HealthStatus healthStatus) {
-        return HealthStatusResponse.builder()
-                .id(healthStatus.getId())
-                .pulse(healthStatus.getPulse())
-                .bloodSugar(healthStatus.getBloodSugar())
-                .bloodHighPressure(healthStatus.getBloodHighPressure())
-                .bloodLowPressure(healthStatus.getBloodLowPressure())
-                .temperature(healthStatus.getTemperature())
-                .bloodOxygen(healthStatus.getBloodOxygen())
-                .drugHistory(healthStatus.getDrugHistory())
-                .notes(healthStatus.getNotes())
-                .status(healthStatus.getStatus())
-                .build();
+    public static HealthStatusResponse of(HealthStatus healthStatus) {
+        return new HealthStatusResponse(
+                healthStatus.getId(),
+                healthStatus.getPulse(),
+                healthStatus.getBloodSugar(),
+                healthStatus.getBloodHighPressure(),
+                healthStatus.getBloodLowPressure(),
+                healthStatus.getTemperature(),
+                healthStatus.getBloodOxygen(),
+                healthStatus.getDrugHistory(),
+                healthStatus.getNotes(),
+                healthStatus.getStatus()
+        );
     }
 }

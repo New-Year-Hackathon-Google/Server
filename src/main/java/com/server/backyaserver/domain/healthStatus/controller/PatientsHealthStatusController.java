@@ -2,21 +2,27 @@ package com.server.backyaserver.domain.healthStatus.controller;
 
 import com.server.backyaserver.domain.healthStatus.domain.HealthStatus;
 import com.server.backyaserver.domain.healthStatus.dto.HealthStatusResponse;
+import com.server.backyaserver.domain.healthStatus.dto.response.HealthStatusGetResponse;
 import com.server.backyaserver.domain.healthStatus.service.PatientsHealthStatusService;
-import org.springframework.http.HttpStatus;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/vi/patient")
+@RequiredArgsConstructor
 public class PatientsHealthStatusController {
 
-    private PatientsHealthStatusService patientsHealthStatusService;
+    private final PatientsHealthStatusService patientsHealthStatusService;
+
+    @GetMapping("/{patientId}/statuses")
+    @Operation(summary = "최근 건강상태 리스트 조회", description = "보호자의 환자 최근 건강상태 리스트를 조회합니다.")
+    public ResponseEntity<List<HealthStatusResponse>> getListHealthStatusByPatientId(@PathVariable("patientId") Long patientId){
+        return ResponseEntity.ok().body(patientsHealthStatusService.getAllPatientsHealthStatus(patientId));
+    }
+
 
 }
