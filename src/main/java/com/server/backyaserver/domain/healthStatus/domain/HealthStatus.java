@@ -1,6 +1,7 @@
 package com.server.backyaserver.domain.healthStatus.domain;
 
 import com.server.backyaserver.domain.patient.domain.Patient;
+import com.server.backyaserver.global.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class HealthStatus {
+public class HealthStatus extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +44,8 @@ public class HealthStatus {
 
     @Builder
     public HealthStatus(Double pulse, Double bloodSugar, Double bloodHighPressure, Double bloodLowPressure,
-                        Double temperature, Double bloodOxygen, String drugHistory, String notes, Status status) {
+                        Double temperature, Double bloodOxygen, String drugHistory, String notes, Status status,
+                        Patient patient) {
         this.pulse = pulse;
         this.bloodSugar = bloodSugar;
         this.bloodHighPressure = bloodHighPressure;
@@ -52,5 +55,6 @@ public class HealthStatus {
         this.drugHistory = drugHistory;
         this.notes = notes;
         this.status = status;
+        this.patient = patient;
     }
 }

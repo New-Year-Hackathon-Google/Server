@@ -28,6 +28,7 @@ public enum ErrorCode {
 
     //환자
     BLOOD_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 혈액형을 찾을 수 없습니다"),
+    PATIENT_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 환자를 찾을 수 없습니다"),
     ;
 
 
