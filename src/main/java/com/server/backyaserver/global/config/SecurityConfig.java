@@ -94,16 +94,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        // 프론트 측 서버주소 재설정 필요
         configuration.setAllowedOrigins(corsAllowedOrigins);
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.addAllowedMethod("*");
+        configuration.setAllowedHeaders(List.of("*")); // 허용할 헤더
         configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L); // 캐시 유효 시간
-
-        // 노출할 헤더 설정
-        configuration.setExposedHeaders(List.of("Set-Cookie", "Authorization"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // 모든 경로에 적용
