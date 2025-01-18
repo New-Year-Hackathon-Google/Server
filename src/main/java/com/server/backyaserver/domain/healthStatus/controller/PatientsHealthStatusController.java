@@ -29,7 +29,7 @@ public class PatientsHealthStatusController {
     @GetMapping("/{patientId}/statuses/{statusId}")
     @Operation(summary = "건강 상태 단일 조회", description = "보호자의 환자 건강상태 단일건을 조회합니다.")
     public ResponseEntity<HealthStatusResponse> getHealthStatusByPatientId(@PathVariable("statusId") Long statusId, @PathVariable("patientId") Long patientId){
-        return ResponseEntity.ok().body(patientsHealthStatusService.getPatientHealthStatus(statusId, patientId));
+        return ResponseEntity.ok().body(patientsHealthStatusService.getPatientsHealthStatus(statusId, patientId));
     }
 
 

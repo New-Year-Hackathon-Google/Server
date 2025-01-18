@@ -29,11 +29,11 @@ public class PatientsHealthStatusService {
     }
 
     @Transactional(readOnly = true)
-    public HealthStatusResponse getPatientsHealthStatusById(Long statusId, Long patientId) {
+    public HealthStatusResponse getPatientsHealthStatus(Long statusId, Long patientId) {
 
         HealthStatus healthStatus = patientsHealthStatusRepository.findByIdAndPatientId(statusId, patientId).
                 orElseThrow(() -> new NotFoundException(ErrorCode.PATIENT_NOT_FOUND));
-        ;
+
         return HealthStatusResponse.of(healthStatus);
     }
 }
