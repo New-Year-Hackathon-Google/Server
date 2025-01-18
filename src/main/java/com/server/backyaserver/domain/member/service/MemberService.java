@@ -1,7 +1,9 @@
 package com.server.backyaserver.domain.member.service;
 
 import com.server.backyaserver.domain.member.entity.Member;
+import com.server.backyaserver.domain.member.entity.MemberRole;
 import com.server.backyaserver.domain.member.repository.MemberRepository;
+import com.server.backyaserver.dto.OAuth2Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +19,25 @@ public class MemberService {
         return memberRepository.findById(id).orElseThrow();
     }
 
-//    private Member createMember(String name, String role) {
-//
-//        Member member = Member.createDefaultMember(nickname, oauthInfo);
-//        return memberRepository.save(member);
-//    }
+    @Transactional(readOnly = true)
+    public Member getMemberByEmail(String email) {
+        return memberRepository.findByEmailOrThrow(email);
+    }
+
+    @Transactional
+    public Member createMemberByOAuthInfo(OAuth2Response oauthInfo) {
+        if(memberRepository.existsByEmail(oauthInfo.getEmail())) {
+            return getMemberByEmail(oauthInfo.getEmail());
+        }
+
+        Member member = Member.createDefaultMember(oauthInfo.getName(), MemberRole.USER,
+                oauthInfo.getEmail());
+
+        return memberRepository.save(member);
+    }
+
+    @Transactional
+    public Member updateMember(Member member) {
+        return memberRepository.save(member);
+    }
 }

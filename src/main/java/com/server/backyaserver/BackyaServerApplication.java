@@ -9,7 +9,6 @@ public class BackyaServerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BackyaServerApplication.class, args);
-        System.out.println("hi");
     }
 
 }
