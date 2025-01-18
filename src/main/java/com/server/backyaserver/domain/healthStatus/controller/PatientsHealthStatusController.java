@@ -18,15 +18,14 @@ public class PatientsHealthStatusController {
 
     private final PatientsHealthStatusService patientsHealthStatusService;
 
-    @GetMapping("/{patientId}/statuses")
-
+    @PostMapping("/{patientId}/statuses")
     @Operation(summary = "건강상태 리스트 조회", description = "보호자의 환자 건강상태 리스트를 조회합니다.")
     public ResponseEntity<List<HealthStatusResponse>> getListHealthStatusByPatientId(@PathVariable("patientId") Long patientId){
 
         return ResponseEntity.ok().body(patientsHealthStatusService.getAllPatientsHealthStatus(patientId));
     }
 
-    @GetMapping("/{patientId}/statuses/{statusId}")
+    @PostMapping("/{patientId}/statuses/{statusId}")
     @Operation(summary = "건강 상태 단일 조회", description = "보호자의 환자 건강상태 단일건을 조회합니다.")
     public ResponseEntity<HealthStatusResponse> getHealthStatusByPatientId(@PathVariable("statusId") Long statusId, @PathVariable("patientId") Long patientId){
         return ResponseEntity.ok().body(patientsHealthStatusService.getPatientsHealthStatus(statusId, patientId));

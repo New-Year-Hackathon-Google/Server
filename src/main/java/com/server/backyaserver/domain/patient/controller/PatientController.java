@@ -27,7 +27,7 @@ public class PatientController {
     private final PatientService patientService;
     private final PatientHealthStatusService patientHealthStatusService;
 
-    @GetMapping("/{memberId}")
+    @PostMapping("/{memberId}")
     @Operation(summary = "보호자의 환자 정보 조회")
     public ResponseEntity<PatientGetResponse> getPatientsByMemberId(
             @PathVariable("memberId") Long id
