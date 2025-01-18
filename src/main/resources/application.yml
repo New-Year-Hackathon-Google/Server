@@ -11,7 +11,8 @@ spring:
     ignore-default-favicon: true
 
 cors-allowed-origins:
+  https://silver-brdige.vercel.app,
   http://backya.duckdns.org:8080,
   http://localhost:8080,
   http://localhost:3000,
-  https://silver-brdige.vercel.app
+
