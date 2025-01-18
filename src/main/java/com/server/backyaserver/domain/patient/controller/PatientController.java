@@ -1,8 +1,10 @@
 package com.server.backyaserver.domain.patient.controller;
 
 import com.server.backyaserver.domain.healthStatus.dto.request.HealthStatusPostRequest;
+import com.server.backyaserver.domain.healthStatus.dto.request.PatientIdRequest;
 import com.server.backyaserver.domain.member.domain.Member;
 import com.server.backyaserver.domain.member.dto.response.MemberGetResponse;
+import com.server.backyaserver.domain.patient.dto.request.MemberIdRequest;
 import com.server.backyaserver.domain.patient.dto.request.PatientPostResponse;
 import com.server.backyaserver.domain.patient.dto.response.PatientGetResponse;
 import com.server.backyaserver.domain.patient.service.PatientHealthStatusService;
@@ -27,12 +29,12 @@ public class PatientController {
     private final PatientService patientService;
     private final PatientHealthStatusService patientHealthStatusService;
 
-    @PostMapping("/{memberId}")
+    @PostMapping("/member")
     @Operation(summary = "보호자의 환자 정보 조회")
     public ResponseEntity<PatientGetResponse> getPatientsByMemberId(
-            @PathVariable("memberId") Long id
-    ) {
-        return ResponseEntity.ok().body(patientService.getPatientByMemberId(id));
+            @RequestBody MemberIdRequest request
+            ) {
+        return ResponseEntity.ok().body(patientService.getPatientByMemberId(request.memberId()));
     }
 
     @GetMapping("")
@@ -50,12 +52,12 @@ public class PatientController {
         return ResponseEntity.ok().body(patientService.createPatient(request));
     }
 
-    @PostMapping("/{patientId}/statuses")
+    @PostMapping("/statuses/create")
     @Operation(summary = "(어드민용) 환자 건강 상태 생성")
     public ResponseEntity<Long> createPatientHealthStatus(
-            @PathVariable("patientId") Long patientId,
+            @RequestBody PatientIdRequest idRequest,
             @RequestBody HealthStatusPostRequest request
     ) {
-        return ResponseEntity.ok().body(patientHealthStatusService.createPatientHealthStatus(patientId, request));
+        return ResponseEntity.ok().body(patientHealthStatusService.createPatientHealthStatus(idRequest.patientId(), request));
     }
 }
