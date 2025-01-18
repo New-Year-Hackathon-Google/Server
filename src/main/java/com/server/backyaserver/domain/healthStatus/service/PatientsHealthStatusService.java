@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PatientsHealthStatusService {
-    PatientsHealthStatusRepository patientsHealthStatusRepository;
-    PatientRepository patientRepository;
+    private final PatientsHealthStatusRepository patientsHealthStatusRepository;
+    private final PatientRepository patientRepository;
 
     @Transactional(readOnly = true)
     public List<HealthStatusResponse> getAllPatientsHealthStatus(Long patientId) {
