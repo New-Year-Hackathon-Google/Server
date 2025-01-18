@@ -44,8 +44,10 @@ public class HealthStatus extends BaseEntity {
 
     @Builder
     public HealthStatus(Double pulse, Double bloodSugar, Double bloodHighPressure, Double bloodLowPressure,
-                        Double temperature, Double bloodOxygen, String drugHistory, String notes, Status status,
-                        Patient patient) {
+
+                        Double temperature, Double bloodOxygen, String drugHistory, String notes, LocalDate date,
+                        Status status, Patient patient) {
+
         this.pulse = pulse;
         this.bloodSugar = bloodSugar;
         this.bloodHighPressure = bloodHighPressure;
