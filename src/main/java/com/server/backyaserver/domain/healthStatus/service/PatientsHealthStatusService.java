@@ -1,5 +1,6 @@
 package com.server.backyaserver.domain.healthStatus.service;
 
+import com.server.backyaserver.domain.healthStatus.domain.HealthStatus;
 import com.server.backyaserver.domain.healthStatus.dto.HealthStatusResponse;
 import com.server.backyaserver.domain.healthStatus.repository.PatientsHealthStatusRepository;
 import com.server.backyaserver.domain.patient.repository.PatientRepository;
@@ -25,5 +26,14 @@ public class PatientsHealthStatusService {
         return patientsHealthStatusRepository.findAllByPatientId(patientId).stream()
                 .map(HealthStatusResponse::of)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public HealthStatusResponse getPatientsHealthStatus(Long statusId, Long patientId) {
+
+        HealthStatus healthStatus = patientsHealthStatusRepository.findByIdAndPatientId(statusId, patientId).
+                orElseThrow(() -> new NotFoundException(ErrorCode.PATIENT_NOT_FOUND));
+
+        return HealthStatusResponse.of(healthStatus);
     }
 }
