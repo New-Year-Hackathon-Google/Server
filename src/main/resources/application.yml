@@ -12,6 +12,7 @@ spring:
 
 cors-allowed-origins:
   https://silver-brdige.vercel.app,
+  https://dev.silver-bridge.kr,
   http://backya.duckdns.org:8080,
   http://localhost:8080,
   http://localhost:3000,
