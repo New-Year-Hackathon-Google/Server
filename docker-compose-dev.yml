@@ -22,6 +22,7 @@ services:
       - CLIENT_ID=${CLIENT_ID}
       - CLIENT_SECRET=${CLIENT_SECRET}
       - IP=${IP}
+      - REDIRECT_URL=${REDIRECT_URL}
     networks:
       - backya
 
