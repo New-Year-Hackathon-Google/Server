@@ -25,26 +25,23 @@ public class Member {
 
     private String name;
 
-    private String username;
-
     private String email;
 
     @Enumerated(EnumType.STRING)
     private MemberRole role;
 
     @Builder
-    public Member(String name, MemberRole role, String email, String username) {
+    public Member(String name, MemberRole role, String email) {
         this.name = name;
         this.role = role;
         this.email = email;
     }
 
-    public static Member createDefaultMember(String name, MemberRole role, String email, String username) {
+    public static Member createDefaultMember(String name, MemberRole role, String email) {
         return Member.builder()
                 .name(name)
                 .role(role)
                 .email(email)
-                .username(username)
                 .build();
     }
 
