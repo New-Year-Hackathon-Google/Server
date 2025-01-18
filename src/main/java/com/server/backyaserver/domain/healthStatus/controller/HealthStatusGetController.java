@@ -5,12 +5,15 @@ import com.server.backyaserver.domain.healthStatus.dto.response.HealthStatusGetR
 import com.server.backyaserver.domain.healthStatus.service.HealthStatusService;
 import com.server.backyaserver.domain.member.domain.Member;
 import com.server.backyaserver.domain.member.dto.response.MemberGetResponse;
+import com.server.backyaserver.domain.patient.dto.request.PatientPostResponse;
 import com.server.backyaserver.global.annotation.AuthUser;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,4 +32,6 @@ public class HealthStatusGetController {
     ) {
         return ResponseEntity.ok().body(healthStatusService.getRecentHealthStatusByPatientId(patientId));
     }
+
+
 }
