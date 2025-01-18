@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface HealthStatusRepository extends JpaRepository<HealthStatus, Long> {
-    @Query("SELECT h FROM HealthStatus h WHERE h.patient.id = :patientId ORDER BY h.createdDate DESC")
-    Optional<HealthStatus> findLatestByPatientId(@Param("patientId") Long patientId);
+//    @Query("SELECT h FROM HealthStatus h WHERE h.patient.id = :patientId ORDER BY h.createdDate DESC")
+//    Optional<HealthStatus> findLatestByPatientId(@Param("patientId") Long patientId);
+
+    Optional<HealthStatus> findFirstByPatientIdOrderByCreatedDateDesc(Long patientId);
 }

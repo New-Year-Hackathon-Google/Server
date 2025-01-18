@@ -17,7 +17,7 @@ public class HealthStatusService {
 
     @Transactional(readOnly = true)
     public HealthStatusGetResponse getRecentHealthStatusByPatientId(Long patientId) {
-        HealthStatus healthStatus = healthStatusRepository.findLatestByPatientId(patientId)
+        HealthStatus healthStatus = healthStatusRepository.findFirstByPatientIdOrderByCreatedDateDesc(patientId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.HEALTH_STATUS_NOT_FOUND));
         return HealthStatusGetResponse.of(healthStatus);
     }
