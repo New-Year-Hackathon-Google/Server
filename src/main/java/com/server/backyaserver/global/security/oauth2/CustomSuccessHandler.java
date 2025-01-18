@@ -1,6 +1,7 @@
 package com.server.backyaserver.global.security.oauth2;
 
 import com.server.backyaserver.domain.member.service.MemberService;
+import com.server.backyaserver.global.properties.oauth.OauthProperties;
 import com.server.backyaserver.global.security.dto.CustomOAuth2User;
 import com.server.backyaserver.global.security.AuthConstants;
 import com.server.backyaserver.global.security.jwt.JwtUtil;
@@ -22,6 +23,7 @@ import java.util.Iterator;
 @RequiredArgsConstructor
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+    private final OauthProperties oauthProperties;
     private final JwtUtil jwtUtil;
     private final MemberService memberService;
 
@@ -31,18 +33,20 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         //OAuth2User
         CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
 
-        String username = customUserDetails.getUsername();
-
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
         String role = auth.getAuthority();
 
         String accessToken = jwtUtil.generateAccessToken(customUserDetails.getUsername(), role);
+
+        String redirectUrl = oauthProperties.redirectUri()
+                + "?accessToken="
+                + accessToken;
+
+        // Redirect to the constructed URL
+        response.sendRedirect(redirectUrl);
         System.out.println("accessToken: " + accessToken);
-        response.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.TOKEN_TYPE + " " + accessToken);
-//        response.addHeader(AuthConstants.REFRESH_TOKEN_HEADER, AuthConstants.TOKEN_TYPE + " " + refreshToken);
-        response.sendRedirect("http://localhost:3000");
     }
 
     private Cookie createCookie(String key, String value) {
