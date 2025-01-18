@@ -20,7 +20,9 @@ public class PatientsHealthStatusController {
 
     @GetMapping("/{patientId}/statuses")
     @Operation(summary = "최근 건강상태 리스트 조회", description = "보호자의 환자 최근 건강상태 리스트를 조회합니다.")
-    public ResponseEntity<List<HealthStatusResponse>> getListHealthStatusByPatientId(@PathVariable("patientId") Long patientId){
+    public ResponseEntity<List<HealthStatusResponse>> getListHealthStatusByPatientId(
+            @PathVariable("patientId") Long patientId
+    ){
         return ResponseEntity.ok().body(patientsHealthStatusService.getAllPatientsHealthStatus(patientId));
     }
 
