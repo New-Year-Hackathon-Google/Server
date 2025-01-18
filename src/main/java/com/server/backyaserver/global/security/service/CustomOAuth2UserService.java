@@ -1,14 +1,13 @@
 package com.server.backyaserver.global.security.service;
 
-import com.server.backyaserver.domain.member.entity.MemberRole;
-import com.server.backyaserver.domain.member.repository.MemberRepository;
+import com.server.backyaserver.domain.member.domain.MemberRole;
 import com.server.backyaserver.domain.member.service.MemberService;
-import com.server.backyaserver.dto.CustomOAuth2User;
-import com.server.backyaserver.dto.GoogleResponse;
-import com.server.backyaserver.dto.OAuth2Response;
+import com.server.backyaserver.global.security.dto.CustomOAuth2User;
+import com.server.backyaserver.global.security.dto.GoogleResponse;
+import com.server.backyaserver.global.security.dto.OAuth2Response;
 
-import com.server.backyaserver.dto.MemberDto;
-import com.server.backyaserver.domain.member.entity.Member;
+import com.server.backyaserver.global.security.dto.MemberDto;
+import com.server.backyaserver.domain.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;

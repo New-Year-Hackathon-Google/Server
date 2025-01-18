@@ -1,4 +1,4 @@
-package com.server.backyaserver.dto;
+package com.server.backyaserver.global.security.dto;
 
 import lombok.Getter;
 import lombok.Setter;

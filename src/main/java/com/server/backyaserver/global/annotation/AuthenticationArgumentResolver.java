@@ -1,6 +1,6 @@
 package com.server.backyaserver.global.annotation;
 
-import com.server.backyaserver.domain.member.entity.Member;
+import com.server.backyaserver.domain.member.domain.Member;
 import com.server.backyaserver.domain.member.repository.MemberRepository;
 import com.server.backyaserver.global.error.exception.BusinessException;
 import com.server.backyaserver.global.error.exception.ErrorCode;

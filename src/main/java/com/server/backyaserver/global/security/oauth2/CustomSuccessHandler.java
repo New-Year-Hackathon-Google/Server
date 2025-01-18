@@ -1,7 +1,7 @@
 package com.server.backyaserver.global.security.oauth2;
 
 import com.server.backyaserver.domain.member.service.MemberService;
-import com.server.backyaserver.dto.CustomOAuth2User;
+import com.server.backyaserver.global.security.dto.CustomOAuth2User;
 import com.server.backyaserver.global.security.AuthConstants;
 import com.server.backyaserver.global.security.jwt.JwtUtil;
 import jakarta.servlet.ServletException;

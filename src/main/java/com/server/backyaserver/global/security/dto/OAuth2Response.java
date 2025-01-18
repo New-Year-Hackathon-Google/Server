@@ -1,4 +1,4 @@
-package com.server.backyaserver.dto;
+package com.server.backyaserver.global.security.dto;
 
 public interface OAuth2Response {
 
