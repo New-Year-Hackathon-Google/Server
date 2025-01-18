@@ -27,8 +27,4 @@ public abstract class BaseEntity {
     @Column(name = "update_at")
     private LocalDateTime updatedDate;
 
-    @Column(name = "deleted")
-    @Builder.Default
-    private boolean deleted = false;
-
 }
